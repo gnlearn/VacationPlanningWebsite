@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+       
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #007BFF;
+            color: #fff;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        nav {
+                display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #2c3e50;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            text-decoration: none;
+            color: #ecf0f1;
+            font-weight: 600;
+            padding: 10px 15px;
+            transition: background 0.3s ease;
+        }
+        nav a:hover {
+            background: #3498db;
+            border-radius: 5px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        .section {
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 1.2em;
+        }
+        .section-content {
+            padding: 20px;
+        }
+        .flight-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .flight-option {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 100%;
+            padding: 20px;
+        }
+        .flight-option h3 {
+            margin-top: 0;
+        }
+        .flight-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+        .flight-summary div {
+            margin-right: 20px;
+        }
+        .flight-segment {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .path {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flight-segment .fa-plane {
+            margin: 0 10px;
+        }
+        .flight-segment div {
+            flex: 1;
+        }
+        .flight-segment div.start, .flight-segment div.end {
+            text-align: center;
+        }
+        .airport-codes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+        .arrow {
+            margin: 0 10px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            background: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+    </nav>
+
+    <header>
+        <h1>Travel Information</h1>
+        <p>Plan your journey with ease!</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Filter Modal -->
+        <div id="filterModal" class="filter-modal">
+            <div class="filter-modal-content">
+                <h3>Filter Options</h3>
+                <form method="POST" action="{{ url_for('travelPage') }}">
+                    <!-- Price Filter -->
+                    <label for="sort-cost">Sort by Price:</label>
+                    <select name="sort_cost" id="sort-cost">
+                        <option value="na">N/A</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
+                    </select>
+        
+                    <!-- Total Travel Time Filter -->
+                    <label for="total-time">Sort by Total Travel Time:</label>
+                    <select name="total_time" id="total-time">
+                        <option value="na">N/A</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
+                    </select>
+        
+                    <!-- Airline Filter -->
+                    <label for="airline">Select Airline:</label>
+                    <select name="airline" id="airline">
+                        <option value="all">All</option>
+                        {% for airline in airlines %}
+                        <option value="{{ airline }}">{{ airline }}</option>
+                        {% endfor %}
+                    </select>
+        
+                    <!-- Time of Day Filter -->
+                    <label for="time-of-day">Preferred Time of Day:</label>
+                    <select name="time_of_day" id="time-of-day">
+                        <option value="na">N/A</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="night">Night</option>
+                    </select>
+        
+                    <!-- Direct Flight Filter -->
+                    <label for="direct">Direct Flight:</label>
+                    <select name="direct" id="direct">
+                        <option value="na">N/A</option>
+                        <option value="yes">Yes</option>
+                    </select>
+        
+                    <button type="submit">Apply Filters</button>
+                    <button type="button" onclick="toggleFilterModal()">Close</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Flight Information -->
+        <div class="flight-options">
+            {% for flight in flights %}
+            <div class="flight-option">
+                <h3>Flight Option {{ loop.index }}</h3>
+                <div class="flight-summary">
+                    <div><span class="highlight"><b>Price:</b></span> ${{ flight['Price'] }}</div>
+                    <div><span class="highlight"><b>Flight Score:</b></span> {{ flight['flight_score'] }}</div>
+                    <div><span class="highlight"><b>Price Score:</b></span> {{ flight['Price_Score'] }}</div>
+                    <div><span class="highlight"><b>Airline:</b></span> {{ flight['Airline'] }}</div>
+                </div>
+                <div class="flight-segment">
+                    <div class="start"><span class="highlight"></span> {{ flight['Travel_out_start_time'] }}</div>
+                    <div class="path"><i class="fas fa-plane fa-3x"></i></div> <!-- Adjust the size with fa-2x, fa-3x, etc. -->
+                    <div class="end"><span class="highlight"></span> {{ flight['Travel_out_end_time'] }}</div>
+                </div>
+                <div class="flight-segment">
+                    <div class="start"><span class="highlight"></span> {{ flight['Travel_back_start_time'] }}</div>
+                    <div class="path"><i class="fas fa-plane fa-3x"></i></div> <!-- Adjust the size with fa-2x, fa-3x, etc. -->
+                    <div class="end"><span class="highlight"></span> {{ flight['Travel_back_end_time'] }}</div>
+                </div>
+                <div class="airport-codes">
+                    {% for code in flight['airport_codes'] %}
+                    <span>{{ code }}</span>
+                    {% if not loop.last %}
+                    <span class="arrow">&rarr;</span>
+                    {% endif %}
+                    {% endfor %}
+                    <span class="arrow">&rarr;</span>
+                    <span>{{flight['airport_codes'][0]}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Car Travel Information -->
+        <div class="section" id="car-info">
+            <div class="section-header">Car Travel Information</div>
+            <div class="section-content">
+                <ul class="data-list">
+                    <li><span class="highlight">Distance:</span> {{ car_data['Distance'] }} Miles</li>
+                    <li><span class="highlight">Estimated Time:</span> {{ car_data['Time'] }} Hours</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Vacation Planner. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleFilterModal() {
+            const modal = document.getElementById('filterModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>

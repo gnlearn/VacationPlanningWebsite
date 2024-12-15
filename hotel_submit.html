@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Listings</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename= 'css/vacationPlanner.css') }}">
+</head>
+<body>
+
+  <div class="topnav"> 
+    {% for item in nav.top %}
+    <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+    {% endfor %} 
+  </div>
+
+  <div class="container">
+    <h1>Explore Our Hotel Listings</h1>
+
+    {% if city_data %}
+      {% for hotel in city_data %}
+        <div class="box hotel">
+          <h2>{{ hotel["name"] }}</h2>
+
+          <div class="reviews">
+            <p><strong>Rating:</strong> {{ hotel["rating"] }} / 5</p>
+          </div>
+
+          <div class="vendors">
+            <p><strong>Available Deals:</strong></p>
+            <ul>
+              <li class="vendor-price">
+                <span>{{ hotel["vendor"] }}</span>: <span>{{ hotel["price"] }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="note">No hotels available for the selected destination. Please try a different city.</p>
+    {% endif %}
+
+  </div>
+
+</body>
+</html>

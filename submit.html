@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Successful</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background: #007BFF;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 600px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex; /* Enable flexbox for layout */
+            flex-direction: column; /* Stack items vertically */
+            gap: 15px; /* Consistent spacing between items */
+        }
+
+        .box {
+            width: calc(100% - 40px); /* Align with container padding */
+            background: #f4f4f9;
+            border: 2px solid #007BFF;
+            padding: 15px;
+            margin: 0 auto; /* Center align inside container */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            color: #333;
+            font-size: 1em;
+            text-align: center;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .box:hover {
+            background: #e0e7ff;
+            transform: scale(1.02); /* Slight hover effect */
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Thank You!</h1>
+    </header>
+
+    <div class="container">
+        <h2>Your information has been stored successfully!</h2>
+        <p>You can now explore the other tabs or start over if you'd like to update your inputs.</p>
+
+        <div>
+            <a href="/travel" class="btn">Explore Travel</a>
+            <a href="/Hotel_submit" class="btn">Explore Hotels</a>
+            <a href="/Events" class="btn">Explore Events</a>
+            <a href="/" class="btn">Start Over</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/vacationPlanner.css') }}">
+    <title>Activities</title>
+    <style>
+        /* Custom styles specific to this page */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .box:hover {
+            background-color: #f0f0f0;
+        }
+
+        .image-container {
+            display: none; /* Hide by default */
+            margin-top: 0.5em;
+        }
+
+        .image-container img {
+            max-width: 100%; /* Limit image width */
+            max-height: 200px; /* Limit image height */
+            object-fit: cover; /* Ensure image fits well */
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav"> 
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %} 
+    </div>
+    <h1>Activities</h1>
+    <div class="container">
+        {% if search_result %}
+            {% for activities in search_result %}
+                <div class="box" onclick="toggleImage({{ loop.index0 }})">
+                    <p>{{ activities }}</p>
+                    <div id="image-container-{{ loop.index0 }}" class="image-container">
+                        {% if us %}
+                        <img src="{{ image_list[loop.index0] }}" alt="activity">
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <script>
+        function toggleImage(index) {
+            // Select the corresponding image container
+            const imageContainer = document.getElementById(`image-container-${index}`);
+            
+            // Toggle its visibility
+            if (imageContainer.style.display === "none" || imageContainer.style.display === "") {
+                imageContainer.style.display = "block"; // Show the image
+            } else {
+                imageContainer.style.display = "none"; // Hide the image
+            }
+        }
+    </script>
+</body>
+</html>

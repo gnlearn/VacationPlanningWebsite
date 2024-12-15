@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/vacationPlanner.css') }}">
+</head>
+<body>
+    <div class="topnav"> 
+        <!-- Below we can use Flask to reference the navigation items we created in our py file. -->
+        <!-- Implement 'active' subclass and construct the item url. -->
+        {% for item in nav.top %}
+        <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %} 
+    </div>
+    
+    <div class="container">
+        <h1>Hotel Booking Form</h1>
+        <form action="/Hotel_submit" method="GET">
+            <label for="city">City:</label><br>
+            <input type="text" id="city" name="city" placeholder="e.g. New York" required><br><br>
+
+            <label for="rooms">Number of Rooms:</label><br>
+            <input type="number" id="rooms" name="rooms" min="1" placeholder="e.g. 1" required><br><br>
+
+            <label for="adults">Number of Adults:</label><br>
+            <input type="number" id="adults" name="adults" min="1" placeholder="e.g. 1" required><br><br>
+
+            <label for="children">Number of Children:</label><br>
+            <input type="number" id="children" name="children" min="0" value="0"><br><br>
+
+            <label for="checkin">Check-In Date:</label><br>
+            <input type="text" id="checkin" name="checkin" placeholder="e.g. 2025-1-20" required><br><br>
+
+            <label for="checkout">Check-Out Date:</label><br>
+            <input type="text" id="checkout" name="checkout" placeholder="e.g. 2025-1-25" required><br><br>
+
+            <button type="submit">Search Hotels</button>
+        </form>
+    </div>
+</body>
+</html>
