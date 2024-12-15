@@ -1,0 +1,139 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+/* Navbar Styles */
+.topnav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #2c3e50;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.topnav a {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: background 0.3s ease;
+}
+
+.topnav a:hover {
+    background: #3498db;
+    border-radius: 5px;
+}
+
+/* Container for Activities */
+.container {
+    max-width: 600px; /* Keep a fixed width for consistent alignment */
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between .box elements */
+}
+
+.box {
+    width: calc(100% - 40px); /* Match container padding */
+    background-color: #ecf0f1;
+    border: 2px solid #3498db;
+    padding: 20px;
+    margin: 0 auto; /* Center align inside container */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Note when no activity
+.container .note {
+    font-size: 1em;
+    color: #7f8c8d;
+    text-align: center;
+}
+*/
+/* Responsive Styling */
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    .box {
+        padding: 15px;
+    }
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #2c3e50;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.navbar a {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: background 0.3s ease;
+}
+.navbar a:hover {
+    background: #3498db;
+    border-radius: 5px;
+}
+
+p {
+    text-align: center;
+    color: #7f8c8d;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #34495e;
+}
+input, button {
+    margin-top: 10px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    outline: none;
+    transition: 0.3s ease;
+}
+input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+button:hover {
+    background: #2980b9;
+}
